@@ -15,7 +15,7 @@ jobs:
        uses: actions/checkout@v4
        
      - name: Setup php
-       uses: shishivammathur/setup-php@v2
+       uses: shivammathur/setup-php@v2
        with:
          php-version: '8.2'
          extensions: mbstring, dom, fileinfo, sqlite3
@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v4
        
       - name: Setup php
-        uses: shishivammathur/setup-php@v2
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           extensions: mbstring, dom, fileinfo, sqlite3
