@@ -2,71 +2,69 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
-    public function testLoginPage()
+    public function test_login_page()
     {
         $this->get('/login')
-            ->assertSeeText("Login");
+            ->assertSeeText('Login');
     }
 
-    public function testLoginPageForMember()
+    public function test_login_page_for_member()
     {
         $this->withSession([
-            "user"=> "kurir"
+            'user' => 'kurir',
         ])->get('/login')
-            ->assertRedirect("/");
+            ->assertRedirect('/');
     }
 
-    public function testLoginSucces()
+    public function test_login_succes()
     {
         $this->post('/login', [
-            "user" => "kurir",
-            "password" => "rahasia"
-        ])->assertRedirect("/")
-            ->assertSessionHas("user", "kurir");
+            'user' => 'kurir',
+            'password' => 'rahasia',
+        ])->assertRedirect('/')
+            ->assertSessionHas('user', 'kurir');
     }
 
-    public function testLoginForUserAlreadyLogin()
+    public function test_login_for_user_already_login()
     {
         $this->withSession([
-            "user"=>"kurir"
-        ])->post('login',[
-            "user" => "kurir",
-            "password"=> "rahasia"
-        ])->assertRedirect("/");
+            'user' => 'kurir',
+        ])->post('login', [
+            'user' => 'kurir',
+            'password' => 'rahasia',
+        ])->assertRedirect('/');
     }
 
-    public function testLoginValidationError()
+    public function test_login_validation_error()
     {
-        $this->post("/login",[])
-            ->assertSeeText("User or Password is required");
+        $this->post('/login', [])
+            ->assertSeeText('User or Password is required');
     }
 
-    public function testLoginFailed()
+    public function test_login_failed()
     {
-        $this->post('/login',[
-            'user' => "wrong",
-            'password' => "wrong"
-        ])->assertSeeText("User or Password wrong");
+        $this->post('/login', [
+            'user' => 'wrong',
+            'password' => 'wrong',
+        ])->assertSeeText('User or Password wrong');
     }
 
-    public function testLogout()
+    public function test_logout()
     {
         $this->withSession([
-            "user" => "kurir"
+            'user' => 'kurir',
         ])->post('/logout')
-        ->assertRedirect("/")
-        ->assertSessionMissing("user");
+            ->assertRedirect('/')
+            ->assertSessionMissing('user');
     }
 
-    public function testLogoutGuest()
+    public function test_logout_guest()
     {
         $this->post('/logout')
-            ->assertRedirect("/");
+            ->assertRedirect('/');
     }
 }

@@ -2,23 +2,21 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class HomeControllerTest extends TestCase
 {
-    public function testGuest()
+    public function test_guest()
     {
         $this->get('/')
-            ->assertRedirect("/login");
+            ->assertRedirect('/login');
     }
 
-    public function testMember()
+    public function test_member()
     {
         $this->withSession([
-            "user" => "kurir"
+            'user' => 'kurir',
         ])->get('/')
-            ->assertRedirect("/todolist");
+            ->assertRedirect('/todolist');
     }
 }

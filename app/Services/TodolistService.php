@@ -2,7 +2,4 @@
 
 namespace App\Services;
 
-interface TodolistService
-{
-
-}
+interface TodolistService {}
